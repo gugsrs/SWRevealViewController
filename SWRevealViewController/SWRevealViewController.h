@@ -307,6 +307,9 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // clipping your front view to this controller bounds.
 @property (nonatomic) BOOL extendsPointInsideHit;
 
+// Defines UIButton to animate
+@property (nonatomic) UIButton* menuButton;
+
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 

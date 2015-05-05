@@ -1269,6 +1269,7 @@ const int FrontViewPositionNone = 0xff;
 {
     UIView *frontView = _contentView.frontView;
     
+
     CGFloat xLocation = frontView.frame.origin.x;
     CGFloat velocity = [recognizer velocityInView:_contentView].x;
     //NSLog( @"Velocity:%1.4f", velocity);
@@ -1281,7 +1282,7 @@ const int FrontViewPositionNone = 0xff;
     CGFloat revealOverdraw ;
     BOOL bounceBack;
     BOOL stableDrag;
-    
+    BOOL hiding = YES;
     [self _getRevealWidth:&revealWidth revealOverDraw:&revealOverdraw forSymetry:symetry];
     [self _getBounceBack:&bounceBack pStableDrag:&stableDrag forSymetry:symetry];
     
@@ -1301,6 +1302,7 @@ const int FrontViewPositionNone = 0xff;
         {
             frontViewPosition = FrontViewPositionRight;
             journey = revealWidth - xLocation;
+            hiding = NO;
             if (xLocation > revealWidth)
             {
                 if (!bounceBack && stableDrag /*&& xPosition > _rearViewRevealWidth+_rearViewRevealOverdraw*0.5f*/)
@@ -1320,11 +1322,14 @@ const int FrontViewPositionNone = 0xff;
         // we may need to set the drag position        
         if (xLocation > revealWidth*0.5f)
         {
+            hiding = NO;
             frontViewPosition = FrontViewPositionRight;
             if (xLocation > revealWidth)
             {
-                if (bounceBack)
+                if (bounceBack) {
                     frontViewPosition = FrontViewPositionLeft;
+                    hiding = YES;
+                }
 
                 else if (stableDrag && xLocation > revealWidth+revealOverdraw*0.5f)
                     frontViewPosition = FrontViewPositionRightMost;
@@ -1332,6 +1337,15 @@ const int FrontViewPositionNone = 0xff;
         }
     }
     
+    if (!hiding) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _menuButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        }];
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            _menuButton.transform = CGAffineTransformMakeRotation(0);
+        }];
+    }
     // symetric replacement of frontViewPosition
     [self _getAdjustedFrontViewPosition:&frontViewPosition forSymetry:symetry];
     
