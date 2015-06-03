@@ -310,6 +310,9 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Defines UIButton to animate
 @property (nonatomic) UIButton* menuButton;
 
+// Defines isShowing boolean
+@property (nonatomic) BOOL isShowing;
+
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 
@@ -385,6 +388,7 @@ typedef enum
 - (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
 - (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
 - (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+
 @end
 
 

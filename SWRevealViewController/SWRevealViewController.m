@@ -89,7 +89,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     {
         _c = controller;
         CGRect bounds = self.bounds;
-    
+
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self reloadShadow];
@@ -841,12 +841,19 @@ const int FrontViewPositionNone = 0xff;
 - (void)revealToggleAnimated:(BOOL)animated
 {
     FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
-    if (_frontViewPosition <= FrontViewPositionLeft)
+    if (_frontViewPosition <= FrontViewPositionLeft) {
         toggledFrontViewPosition = FrontViewPositionRight;
-    
+        _isShowing = true;
+    } else {
+        _isShowing = false;
+    }
+
     [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
 
+- (BOOL)isShowing {
+    return _isShowing;
+}
 
 - (void)rightRevealToggleAnimated:(BOOL)animated
 {
@@ -1337,6 +1344,8 @@ const int FrontViewPositionNone = 0xff;
         }
     }
     
+    _isShowing = !hiding;
+
     if (!hiding) {
         [UIView animateWithDuration:0.3 animations:^{
             _menuButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
@@ -1821,7 +1830,6 @@ const int FrontViewPositionNone = 0xff;
     
     [super decodeRestorableStateWithCoder:coder];
 }
-
 
 - (void)applicationFinishedRestoringState
 {
