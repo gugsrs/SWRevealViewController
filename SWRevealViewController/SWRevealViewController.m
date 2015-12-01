@@ -1345,14 +1345,14 @@ const int FrontViewPositionNone = 0xff;
     }
     
     _isShowing = !hiding;
-
+    UIView* view = [_menuButton valueForKey:@"view"];
     if (!hiding) {
         [UIView animateWithDuration:0.3 animations:^{
-            _menuButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            view.transform = CGAffineTransformMakeRotation(-M_PI_2);
         }];
     } else {
         [UIView animateWithDuration:0.3 animations:^{
-            _menuButton.transform = CGAffineTransformMakeRotation(0);
+            view.transform = CGAffineTransformMakeRotation(0);
         }];
     }
     // symetric replacement of frontViewPosition

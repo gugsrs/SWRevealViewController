@@ -308,7 +308,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 @property (nonatomic) BOOL extendsPointInsideHit;
 
 // Defines UIButton to animate
-@property (nonatomic) UIButton* menuButton;
+@property (nonatomic) UIBarButtonItem* menuButton;
 
 // Defines isShowing boolean
 @property (nonatomic) BOOL isShowing;
